@@ -1,0 +1,78 @@
+version: '3.3'
+services:
+  gitlab:
+    image: 'gitlab/gitlab-ce:$GITLAB_VERSION'
+    restart: always
+    hostname: '$GITLAB_HOSTNAME'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url '$GITLAB_EXTERNAL_URL'
+
+        gitlab_rails['registry_enabled'] = true
+        registry_external_url '$GITLAB_EXTERNAL_URL:$GITLAB_REGISTRY_PORT'
+        registry_nginx['listen_port'] = $GITLAB_REGISTRY_PORT
+        registry_nginx['listen_https'] = true
+
+        gitlab_rails['mattermost_enabled'] = true
+        mattermost_external_url '$GITLAB_EXTERNAL_URL:$GITLAB_MATTERMOST_PORT'
+        mattermost_nginx['listen_port'] = $GITLAB_MATTERMOST_PORT
+        mattermost_nginx['listen_https'] = true
+
+        gitlab_pages['enable'] = true
+        pages_external_url '$GITLAB_PAGES_URL_PATTERN'                
+        pages_nginx['listen_port'] = $GITLAB_PAGES_PORT        
+        pages_nginx['enable'] = true
+        gitlab_pages['listen_proxy'] = "localhost:8089"
+        gitlab_pages['inplace_chroot'] = true
+
+        letsencrypt['auto_renew_hour'] = "12"
+        letsencrypt['auto_renew_minute'] = "30"
+        letsencrypt['auto_renew_day_of_month'] = "*/7"
+        letsencrypt['enable']=true
+        letsencrypt['contact_emails']=['$GITLAB_LETS_ENCRYPT_CONTACT_MAIL']
+
+        gitlab_rails['initial_root_password'] = '$GITLAB_ROOT_PASSWORD'
+        gitlab_rails['initial_shared_runners_registration_token'] = '$GITLAB_RUNNER_TOKEN'
+        gitlab_rails['gitlab_shell_ssh_port'] = $GITLAB_SSH_PORT        
+        
+        gitlab_rails['smtp_enable'] = true
+        gitlab_rails['smtp_address'] = '$MAIL_DOMAIN'
+        gitlab_rails['smtp_port'] = 25
+        gitlab_rails['smtp_user_name'] = '$MAIL_USER'
+        gitlab_rails['smtp_password'] = '$MAIL_GITLAB_PASSWORD'
+        gitlab_rails['smtp_domain'] = '$MAIL_DOMAIN'
+        gitlab_rails['smtp_authentication'] = 'login'
+        gitlab_rails['smtp_enable_starttls_auto'] = true
+        gitlab_rails['smtp_openssl_verify_mode'] = 'peer'
+        gitlab_rails['gitlab_email_from'] = 'gitlab@$MAIL_DOMAIN'
+        gitlab_rails['gitlab_email_reply_to'] = 'noreply@$MAIL_DOMAIN'
+    ports:
+      - '80:80'
+      - '443:443'
+      - '$GITLAB_SSH_PORT:22'
+      - '$GITLAB_REGISTRY_PORT:$GITLAB_REGISTRY_PORT'
+      - '$GITLAB_MATTERMOST_PORT:$GITLAB_MATTERMOST_PORT'
+      - '$GITLAB_PAGES_PORT:$GITLAB_PAGES_PORT'
+    volumes:
+      - '/srv/gitlab/config:/etc/gitlab'
+      - '/srv/gitlab/logs:/var/log/gitlab'
+      - '/srv/gitlab/data:/var/opt/gitlab'
+      
+  runner:
+     image: gitlab/gitlab-runner:alpine
+     restart: always
+     volumes:
+        - '/var/run/docker.sock:/var/run/docker.sock'
+     links:
+        - gitlab
+
+  mail:
+     image: catatnight/postfix
+     restart: always
+     environment:
+       maildomain: '$MAIL_DOMAIN'
+       smtp_user: 'gitlab:$MAIL_GITLAB_PASSWORD'
+     ports:
+       - '$MAIL_PORT:$MAIL_PORT'
+     volumes:
+       - '/srv/gitlab/config/ssl:/etc/postfix/certs'
