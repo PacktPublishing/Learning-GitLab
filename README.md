@@ -21,8 +21,17 @@ By the end of this course, you will be able to develop better applications using
 To fully benefit from the coverage included in this course, you will need:<br/>
 This course is for developers and DevOps professionals who want to master software development workflows in GitLab and boost their productivity by getting their teams to work together. Previous experience with version control systems is required.
 ### Technical Requirements
-This course has the following software requirements:<br/>
-DevOps
+This course has the following software requirements:</br>
+•	Operating system: Linux
+•	Browser: Firefox or Chrome, Latest Version
+•	Docker (https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+
+This course has been tested on the following system configuration:
+•	OS: Linux
+•	Processor: Core i5 (or equivalent)
+•	Memory: 4GB RAM
+•	Storage: 256 GB
+
 
 ## Related Products
 * [Full-Stack Web Development with Flask [Video]](https://www.packtpub.com/web-development/full-stack-web-development-flask-video?utm_source=github&utm_medium=repository&utm_campaign=9781789957464)
