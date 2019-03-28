@@ -22,15 +22,17 @@ To fully benefit from the coverage included in this course, you will need:<br/>
 This course is for developers and DevOps professionals who want to master software development workflows in GitLab and boost their productivity by getting their teams to work together. Previous experience with version control systems is required.
 ### Technical Requirements
 This course has the following software requirements:</br>
-•	Operating system: Linux
-•	Browser: Firefox or Chrome, Latest Version
-•	Docker (https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+<UL>
+<LI>Operating system: Linux</LI>
+<LI>Browser: Firefox or Chrome, Latest Version</LI>
+<LI>Docker (https://docs.docker.com/install/linux/docker-ce/ubuntu/)</LI></UL>
 
 This course has been tested on the following system configuration:
-•	OS: Linux
-•	Processor: Core i5 (or equivalent)
-•	Memory: 4GB RAM
-•	Storage: 256 GB
+<UL>
+<LI>OS: Linux</LI>
+<LI>Processor: Core i5 (or equivalent)</LI>
+<LI>Memory: 4GB RAM</LI>
+<LI>Storage: 256 GB</LI></UL>
 
 
 ## Related Products
