@@ -9,12 +9,11 @@ By the end of this course, you will be able to develop better applications using
 <H2>What You Will Learn</H2>
 <DIV class=book-info-will-learn-text>
 <UL>
-<LI>Build an angular 7 app from scratch 
-<LI>Use Angular Material to add styles to your app&nbsp; 
-<LI>Upgrade an angular 6 app tp angular 7 
-<LI>Create a new Angular 7 project with the angular-cli 
-<LI>Install the new angular-cli globally on your machine 
-<LI>Update an existing Angular 6 project to version 7 </LI></UL></DIV>
+<LI>Discover how to organize new features and bugs with Issue Board
+<LI>Use groups to control access to each project
+<LI>Time each phase in your development cycle with Cycle Analytics 
+<LI>Implement Continuous Integration, and Continuous Deployment
+<LI>Use GitLab Pages to create a site and publicize your project</LI></UL>
 
 ## Instructions and Navigation
 ### Assumed Knowledge
